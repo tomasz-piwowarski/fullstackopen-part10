@@ -39,17 +39,17 @@ const ItemTopPart = ({ ownerAvatarUrl, fullName, description, language }) => {
         <View style={styles.topParent}>
             <Image style={styles.image} source={{ uri: ownerAvatarUrl }} />
             <View style={styles.topChilds}>
-                <View style={styles.topChild}>
+                <View style={styles.topChild} testID='repositoryName'>
                     <Subheading style={{ flexShrink: 1 }}>
                         {fullName}
                     </Subheading>
                 </View>
-                <View style={styles.topChild}>
+                <View style={styles.topChild} testID='repositoryDescription'>
                     <Text style={{ flexShrink: 1 }} color='textSecondary'>
                         {description}
                     </Text>
                 </View>
-                <View style={styles.language}>
+                <View style={styles.language} testID='repositoryLanguage'>
                     <Text color='white'>{language}</Text>
                 </View>
             </View>

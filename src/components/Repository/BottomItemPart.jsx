@@ -29,11 +29,11 @@ const ItemBottomPart = ({
                 <Subheading>{forksCount}</Subheading>
                 <Text color='textSecondary'>Forks</Text>
             </View>
-            <View style={styles.bottomChild}>
+            <View style={styles.bottomChild} testID='repositoryReviews'>
                 <Subheading>{reviewCount}</Subheading>
                 <Text color='textSecondary'>Reviews</Text>
             </View>
-            <View style={styles.bottomChild}>
+            <View style={styles.bottomChild} testID='repositoryRatings'>
                 <Subheading>{ratingAverage}</Subheading>
                 <Text color='textSecondary'>Ratings</Text>
             </View>

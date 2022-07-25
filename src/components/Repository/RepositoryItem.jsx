@@ -1,7 +1,9 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Pressable } from "react-native";
 import theme from "../../theme";
 import ItemTopPart from "./ItemTopPart";
 import ItemBottomPart from "./BottomItemPart";
+import Text from "../Text";
+import * as Linking from "expo-linking";
 
 const styles = StyleSheet.create({
     container: {
@@ -16,11 +18,12 @@ function kFormatter(num) {
         : Math.sign(num) * Math.abs(num);
 }
 
-const RepositoryItem = ({ repository }) => {
+const RepositoryItem = ({ repository, single }) => {
     let stargazersCount = kFormatter(repository.stargazersCount);
     let forksCount = kFormatter(repository.forksCount);
+
     return (
-        <View style={styles.container}>
+        <View style={styles.container} testID='repositoryItem'>
             <ItemTopPart
                 {...{
                     ownerAvatarUrl: repository.ownerAvatarUrl,
@@ -37,6 +40,17 @@ const RepositoryItem = ({ repository }) => {
                     ratingAverage: repository.ratingAverage,
                 }}
             />
+            {single ? (
+                <View style={theme.buttonSection}>
+                    <Pressable
+                        onPress={() => {
+                            Linking.openURL(repository.url);
+                        }}
+                    >
+                        <Text style={theme.buttonText}>Open in GitHub</Text>
+                    </Pressable>
+                </View>
+            ) : null}
         </View>
     );
 };

@@ -2,9 +2,9 @@ import { View, StyleSheet } from "react-native";
 import { Formik } from "formik";
 import SignInForm from "./SignInForm";
 import * as yup from "yup";
-import useSignIn from "../hooks/useSignIn";
+import useSignIn from "../../hooks/useSignIn";
 import { useNavigate } from "react-router-native";
-import AuthStorageContext from "../contexts/AuthStorageContext";
+import AuthStorageContext from "../../contexts/AuthStorageContext";
 import { useContext } from "react";
 import { useApolloClient } from "@apollo/client";
 
@@ -21,25 +21,10 @@ const styles = StyleSheet.create({
     },
 });
 
-const SignIn = () => {
-    const apolloClient = useApolloClient();
-    const authStorage = useContext(AuthStorageContext);
-    const [signIn] = useSignIn();
-    const navigate = useNavigate();
+export const SignInContainer = ({ onSubmit }) => {
     const initialValues = {
         username: "",
         password: "",
-    };
-
-    const onSubmit = async ({ username, password }) => {
-        try {
-            const { data } = await signIn({ username, password });
-            await authStorage.setAccessToken(data.authenticate.accessToken);
-            apolloClient.resetStore();
-            navigate("/");
-        } catch (e) {
-            console.log(e);
-        }
     };
 
     return (
@@ -55,6 +40,26 @@ const SignIn = () => {
             </Formik>
         </View>
     );
+};
+
+const SignIn = () => {
+    const apolloClient = useApolloClient();
+    const authStorage = useContext(AuthStorageContext);
+    const [signIn] = useSignIn();
+    const navigate = useNavigate();
+
+    const onSubmit = async ({ username, password }) => {
+        try {
+            const { data } = await signIn({ username, password });
+            await authStorage.setAccessToken(data.authenticate.accessToken);
+            apolloClient.resetStore();
+            navigate("/");
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    return <SignInContainer onSubmit={onSubmit} />;
 };
 
 export default SignIn;

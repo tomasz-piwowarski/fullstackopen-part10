@@ -14,11 +14,13 @@ const styles = StyleSheet.create({
     container: {
         paddingTop: Constants.statusBarHeight * 1.8,
         paddingBottom: Constants.statusBarHeight,
-        paddingLeft: 15,
+        paddingLeft: 10,
         backgroundColor: theme.colors.textPrimary,
         flexDirection: "row",
     },
-    // ...
+    tab: {
+        marginHorizontal: 5,
+    },
 });
 
 const AppBar = () => {
@@ -35,24 +37,33 @@ const AppBar = () => {
         navigate("/");
     };
 
-    console.log(data);
     return (
         <View style={styles.container}>
             <ScrollView horizontal>
-                <Link style={{ marginLeft: 5, marginRight: 5 }} to='/'>
-                    <AppBarTab text='Repository' color='appBarTab' />
+                <Link style={styles.tab} to='/'>
+                    <AppBarTab text='Repositories' color='appBarTab' />
                 </Link>
                 {!data?.me ? (
-                    <Link
-                        style={{ marginLeft: 5, marginRight: 5 }}
-                        to='/signin'
-                    >
-                        <AppBarTab text='Sign In' color='appBarTab' />
-                    </Link>
+                    <>
+                        <Link style={styles.tab} to='/signin'>
+                            <AppBarTab text='Sign In' color='appBarTab' />
+                        </Link>
+                        <Link style={styles.tab} to='/signup'>
+                            <AppBarTab text='Sign Up' color='appBarTab' />
+                        </Link>
+                    </>
                 ) : (
-                    <Pressable onPress={handleSignOut}>
-                        <AppBarTab text='Sign Out' color='appBarTab' />
-                    </Pressable>
+                    <>
+                        <Link style={styles.tab} to='/createreview'>
+                            <AppBarTab text='Create Review' color='appBarTab' />
+                        </Link>
+                        <Link style={styles.tab} to='/myreviews'>
+                            <AppBarTab text='My Reviews' color='appBarTab' />
+                        </Link>
+                        <Pressable onPress={handleSignOut}>
+                            <AppBarTab text='Sign Out' color='appBarTab' />
+                        </Pressable>
+                    </>
                 )}
             </ScrollView>
         </View>
